@@ -146,7 +146,3 @@ jobs:
                 }
               }
             }
-
-curl -X POST -H "Content-Type: application/json" \
-    -d '{"msg_type":"text","content":{"text":"request example"}}' \
-    https://open.feishu.cn/open-apis/bot/v2/hook/0788acac-eb5c-40eb-8409-1da9b244f440
