@@ -10,6 +10,8 @@ on:
 jobs:
   sync-dev:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Gives write access to repository contents
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
