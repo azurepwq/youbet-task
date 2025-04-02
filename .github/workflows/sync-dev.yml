@@ -49,7 +49,7 @@ jobs:
                   "tag": "div",
                   "text": {
                     "tag": "lark_md",
-                    "content": "success"
+                    "content": "[GitHub] [Branch Sync] [YouBet]\n\n✅ **Branch Sync Successful**\n\n**Repository:** ${{ github.repository }}\n**Workflow:** ${{ github.workflow }}\n**Triggered by:** ${{ github.actor }}\n**Event:** ${{ github.event_name }}\n\n[View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
                   }
                 }
               ]
