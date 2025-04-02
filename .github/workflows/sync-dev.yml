@@ -10,6 +10,8 @@ on:
 jobs:
   sync-dev:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Gives write access to repository contents
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,8 +27,6 @@ jobs:
           git push origin dev
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        permissions:
-          contents: write
 
       - name: Send Feishu notification on success
         if: steps.sync.outcome == 'success'
