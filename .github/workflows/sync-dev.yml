@@ -1,7 +1,7 @@
 name: Sync Dev Branch
 
 on:
-  push:
+  pull_request: 
     branches:
       - main
   # Adding workflow_dispatch to allow manual testing
