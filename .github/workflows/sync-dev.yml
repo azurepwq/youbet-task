@@ -34,61 +34,50 @@ jobs:
         if: success()
         run: |
           timestamp=$(date +%s)
-          curl -X POST -H "Content-Type: application/json" \
+          curl -X POST "https://open.feishu.cn/open-apis/bot/v2/hook/0788acac-eb5c-40eb-8409-1da9b244f440" \
+          -H "Content-Type: application/json" \
           -d '{
             "msg_type": "interactive",
             "card": {
-              "config": {
-                "wide_screen_mode": true
+              "config": { "wide_screen_mode": true },
+              "header": {
+                "title": { "tag": "plain_text", "content": "✅ Branch Sync Completed" },
+                "template": "green"
               },
               "elements": [
                 {
                   "tag": "div",
                   "text": {
-                    "content": "[GitHub] [Branch Sync] [YouBet]\n\n✅ **Branch Sync Successful**\n\n**Repository:** ${{ github.repository }}\n**Workflow:** ${{ github.workflow }}\n**Triggered by:** ${{ github.actor }}\n**Event:** ${{ github.event_name }}\n\n[View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
-                    "tag": "lark_md"
+                    "tag": "lark_md",
+                    "content": "success"
                   }
                 }
-              ],
-              "header": {
-                "template": "green",
-                "title": {
-                  "content": "✅ Branch Sync Completed",
-                  "tag": "plain_text"
-                }
-              }
+              ]
             }
           }'
 
       - name: Send Feishu notification on failure
         if: failure()
         run: |
-          curl -X POST -H "Content-Type: application/json" \
+          timestamp=$(date +%s)
+          curl -X POST "https://open.feishu.cn/open-apis/bot/v2/hook/0788acac-eb5c-40eb-8409-1da9b244f440" \
+          -H "Content-Type: application/json" \
           -d '{
             "msg_type": "interactive",
             "card": {
-          curl -X POST -H "Content-Type: application/json" \
-          -d '{
-            "msg_type": "interactive",
-            "card": {
-              "config": {
-                "wide_screen_mode": true
+              "config": { "wide_screen_mode": true },
+              "header": {
+                "title": { "tag": "plain_text", "content": "✅ Branch Sync Completed" },
+                "template": "green"
               },
               "elements": [
                 {
                   "tag": "div",
                   "text": {
-                    "content": "Failure: [GitHub] [Branch Sync] [YouBet]\n\n❌ **Branch Sync Failed**\n\n**Repository:** ${{ github.repository }}\n**Workflow:** ${{ github.workflow }}\n**Triggered by:** ${{ github.actor }}\n**Event:** ${{ github.event_name }}\n\n[View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
-                    "tag": "lark_md"
+                    "tag": "lark_md",
+                    "content": "failure"
                   }
                 }
-              ],
-              "header": {
-                "template": "red",
-                "title": {
-                  "content": "❌ Branch Sync Failed",
-                  "tag": "plain_text"
-                }
-              }
+              ]
             }
           }'
