@@ -46,3 +46,9 @@ src
 ├── types       # Typescript types
 └── vite-env.d.ts
 ```
+
+## GitHub Workflow
+
+This project includes an automated GitHub workflow that keeps the `dev` branch synchronized with the `main` branch. Whenever changes are merged into `main`, the workflow automatically updates the `dev` branch to match.
+
+The workflow configuration can be found in `.github/workflows/sync-dev.yml`.

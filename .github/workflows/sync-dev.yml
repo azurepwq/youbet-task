@@ -1,0 +1,89 @@
+name: Sync Dev Branch
+
+on:
+  push:
+    branches:
+      - main
+  # Adding workflow_dispatch to allow manual testing
+  workflow_dispatch:
+
+jobs:
+  sync-dev:
+    runs-on: alpine-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update dev branch
+        id: sync
+        continue-on-error: true
+        run: |
+          git checkout dev
+          git merge main
+          git push origin dev
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Send Feishu notification on failure
+        if: steps.sync.outcome == 'failure'
+        uses: foxundermoon/feishu-action@v2
+        with:
+          url: ${{ secrets.FEISHU_WEBHOOK_URL }}
+          msg_type: interactive
+          content: |
+            {
+              "config": {
+                "wide_screen_mode": true
+              },
+              "elements": [
+                {
+                  "tag": "div",
+                  "text": {
+                    "content": "❌ **Branch Sync Failed**\n\n**Repository:** ${{ github.repository }}\n**Workflow:** ${{ github.workflow }}\n**Triggered by:** ${{ github.actor }}\n**Event:** ${{ github.event_name }}\n\n[View Action Details](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                    "tag": "lark_md"
+                  }
+                }
+              ],
+              "header": {
+                "template": "red",
+                "title": {
+                  "content": "🚨 Branch Sync Failed",
+                  "tag": "plain_text"
+                }
+              }
+            }
+
+  # Adding a test job that you can run manually
+  test-notification:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: alpine-latest
+    steps:
+      - name: Send test notification
+        uses: foxundermoon/feishu-action@v2
+        with:
+          url: ${{ secrets.FEISHU_WEBHOOK_URL }}
+          msg_type: interactive
+          content: |
+            {
+              "config": {
+                "wide_screen_mode": true
+              },
+              "elements": [
+                {
+                  "tag": "div",
+                  "text": {
+                    "content": "✅ **Test Notification**\n\nThis is a test message to verify the Feishu notification system is working correctly.\n\n**Repository:** ${{ github.repository }}\n**Triggered by:** ${{ github.actor }}",
+                    "tag": "lark_md"
+                  }
+                }
+              ],
+              "header": {
+                "template": "green",
+                "title": {
+                  "content": "🧪 Test Notification",
+                  "tag": "plain_text"
+                }
+              }
+            } 
