@@ -4,6 +4,8 @@ on:
   pull_request: 
     branches:
       - main
+  # Adding workflow_dispatch to allow manual testing
+  workflow_dispatch:
 
 jobs:
   sync-dev:
