@@ -1,12 +1,13 @@
 name: Sync Dev Branch
 
 on:
-  pull_request: 
-    branches:
-      - main
   push:
     branches:
       - main
+
+  pull_request: 
+    types:
+      - closed
 
 jobs:
   sync-dev:
