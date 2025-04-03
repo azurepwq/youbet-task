@@ -10,7 +10,7 @@ on:
 
 jobs:
   sync-dev:
-    runs-on: alpine-latest
+    runs-on: alpine-3.18
     permissions:
       contents: write  # Gives write access to repository contents
     steps:
