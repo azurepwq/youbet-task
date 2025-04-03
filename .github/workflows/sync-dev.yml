@@ -32,7 +32,7 @@ jobs:
         if: success()
         run: |
           timestamp=$(date +%s)
-          curl -X POST "https://open.feishu.cn/open-apis/bot/v2/hook/0788acac-eb5c-40eb-8409-1da9b244f440" \
+          curl -X POST "${{ secrets.FEISHU_WEBHOOK_URL }}" \
           -H "Content-Type: application/json" \
           -d '{
             "msg_type": "interactive",
@@ -58,7 +58,7 @@ jobs:
         if: failure()
         run: |
           timestamp=$(date +%s)
-          curl -X POST "https://open.feishu.cn/open-apis/bot/v2/hook/0788acac-eb5c-40eb-8409-1da9b244f440" \
+          curl -X POST "${{ secrets.FEISHU_WEBHOOK_URL }}" \
           -H "Content-Type: application/json" \
           -d '{
             "msg_type": "interactive",
