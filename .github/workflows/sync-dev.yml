@@ -11,6 +11,11 @@ on:
 
   # manual trigger
   workflow_dispatch:
+    inputs:
+      simulate_failure:
+        description: 'Simulate failure for testing'
+        required: false
+        default: 'false'
 
 jobs:
   sync-dev:
@@ -22,12 +27,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Simulate failure (manual trigger)
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        run: |
-          echo "Simulating failure..."
-          exit 1
 
       - name: Update dev branch
         id: sync
@@ -44,8 +43,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Send Feishu notification on success
-        if: success()
-        # 发送成功通知
+        if: ${{ success() && inputs.simulate_failure != 'true' }}
+        # 发送成功通知aaaaa
         run: |
           timestamp=$(date +%s)
           curl -X POST \
@@ -107,7 +106,7 @@ jobs:
           ${{ secrets.FEISHU_BOT_WEBHOOK_URL }}
 
       - name: Send Feishu notification on failure
-        if: ${ failure() } || ${{ github.event_name == 'workflow_dispatch' }}
+        if: ${{ failure()  || inputs.simulate_failure == 'true' }}
         run: |
           timestamp=$(date +%s)
           curl -X POST \
