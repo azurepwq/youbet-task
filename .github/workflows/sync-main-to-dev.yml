@@ -58,28 +58,28 @@ jobs:
                   "tag": "div",
                   "text": {
                     "tag": "lark_md",
-                    "content": "**Repository:** [${{ github.repository }}](github.com/${{ github.repository }})"
+                    "content": "📦 **Repository:** [${{ github.repository }}](github.com/${{ github.repository }})"
                   }
                 },
                 {
                   "tag": "div",
                   "text": {
                     "tag": "lark_md",
-                    "content": "**Workflow:** [${{ github.workflow }}](github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+                    "content": "🔄 **Workflow:** [${{ github.workflow }}](github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
                   }
                 },
                 {
                   "tag": "div",
                   "text": {
                     "tag": "lark_md",
-                    "content": "**Triggered by:** ${{ github.actor }}"
+                    "content": "🚀 **Triggered by:** ${{ github.actor }}"
                   }
                 },
                 {
                   "tag": "div",
                   "text": {
                     "tag": "lark_md",
-                    "content": "**Event:** ${{ github.event_name }}"
+                    "content": "🔔 **Event:** ${{ github.event_name }}"
                   }
                 },
                 {
@@ -113,7 +113,7 @@ jobs:
             "card": {
               "config": { "wide_screen_mode": true },
               "header": {
-                "title": { "tag": "plain_text", "content": "🚨 Dev Branch Sync Failed" },
+                "title": { "tag": "plain_text", "content": "❌ Dev Branch Sync Failed" },
                 "template": "red"
               },
               "elements": [
@@ -121,28 +121,28 @@ jobs:
                   "tag": "div",
                   "text": {
                     "tag": "lark_md",
-                    "content": "**Repository:** [${{ github.repository }}](github.com/${{ github.repository }})"
+                    "content": "📦 **Repository:** [${{ github.repository }}](github.com/${{ github.repository }})"
                   }
                 },
                 {
                   "tag": "div",
                   "text": {
                     "tag": "lark_md",
-                    "content": "**Workflow:** [${{ github.workflow }}](github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+                    "content": "🔄 **Workflow:** [${{ github.workflow }}](github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})"
                   }
                 },
                 {
                   "tag": "div",
                   "text": {
                     "tag": "lark_md",
-                    "content": "**Triggered by:** ${{ github.actor }}"
+                    "content": "🚀 **Triggered by:** ${{ github.actor }}"
                   }
                 },
                 {
                   "tag": "div",
                   "text": {
                     "tag": "lark_md",
-                    "content": "**Event:** ${{ github.event_name }}"
+                    "content": "🔔 **Event:** ${{ github.event_name }}"
                   }
                 },
                 {
