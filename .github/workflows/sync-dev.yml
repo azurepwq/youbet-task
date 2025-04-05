@@ -34,7 +34,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git checkout dev
-          git merge --ff-only main
+          git merge main
           git push origin dev
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -102,7 +102,8 @@ jobs:
           ${{ secrets.FEISHU_BOT_WEBHOOK_URL }}
 
       - name: Send Feishu notification on failure
-        if: ${ failure() } || ${{ github.event_name == 'workflow_dispatch' }}
+        if: ${{ failure() || inputs.simulate_failure == 'true' }}
+
         run: |
           timestamp=$(date +%s)
           curl -X POST \
