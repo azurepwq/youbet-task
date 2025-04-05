@@ -41,7 +41,6 @@ jobs:
 
       - name: Send Feishu notification on success
         if: ${{ success() && inputs.simulate_failure != 'true' }}
-        # 发送成功通知aaaaa
         run: |
           timestamp=$(date +%s)
           curl -X POST \
@@ -103,7 +102,7 @@ jobs:
           ${{ secrets.FEISHU_BOT_WEBHOOK_URL }}
 
       - name: Send Feishu notification on failure
-        if: ${{ failure()  || inputs.simulate_failure == 'true' }}
+        if: ${ failure() } || ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           timestamp=$(date +%s)
           curl -X POST \
